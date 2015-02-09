@@ -105,7 +105,7 @@ You can validate how it will look using the [cards validator](https://cards-dev.
 # To Do List
 
  * Make the plugin a gem, so it can be installed using `gem install`
- * add tests cases
+ * add tests cases (see [https://github.com/ivantsepp/jekyll-autolink_email](https://github.com/ivantsepp/jekyll-autolink_email))
 
 # Contributing
 
