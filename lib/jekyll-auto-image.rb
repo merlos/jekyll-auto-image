@@ -1,4 +1,4 @@
-require "jekyll/auto/image/version"
+require "jekyll-auto-image/version"
 require "jekyll"
 
 module Jekyll
