@@ -2,15 +2,42 @@
 
 jekyll plugin that makes available the first image of a post in the template as a variable.
 
+By installing the plugin you will be able to access the first image of a page through `{{ @page.image }}`.
+
 This plugin is useful if you want to:
 
-*  list the posts of your jekyll site including an image 
-*  setting the twitter card image 
+*  Include an image on your list of posts
+*  Set a twitter card image for a post (see example below)
+
 
 # Install
 
-Copy `auto-image.rb` into your jekyll `_plugins` directory
+Add to your Gemfile:
 
+```
+gem 'jekyll-auto-image'
+```
+or run 
+
+```
+$ gem install jekyll-auto-image
+```
+
+
+Then, add to your `_config.yml`:
+
+```yaml
+gems:
+  - jekyll-auto-image
+```
+
+The plugin allows you to set a default image for all pages/posts. To do that, add to your `_config.yml`:
+
+```yaml
+ # _config.yml
+
+ image: /path/to/your/default/image.png
+```
 
 # Usage
 
@@ -19,17 +46,10 @@ In each post/page, the plugin will set `{{ page.image }}` following this fallbac
 1. Front matter `image` value
 2. First image in the post/page contents
 3. Default site image (defined in `_config.yml`)
-4. Nothing (false)
+4. nil
 
 Basically, the plugin will return the front matter image value if set. If it is not set, then it will look for the first image asset that is defined in your post content. If the post does not have any image, then it will set the site.image defined in _config.yml.
 
-To set the default image for all pages/posts, add to the  `_config.yml` file the following line:
-
-```yaml
- # _config.yml
-
- image: /path/to/your/default/image.png
-```
 
 ### Example of usage
 
@@ -41,7 +61,7 @@ layout: post
 title: Post 1
 ---
 
-This is my example post
+This is my example post. It includes an image in the contents.
 
 ![first image](/assets/first_image.png)
 
@@ -55,13 +75,16 @@ title: Post 2
 image: /assets/front_matter_image.png
 ---
 
-This is my example post
+This is my second example post, because the
+post includes the front matter image, the plugin 
+will return it instead of the first image in the 
+contents.
 
 ![first image](/assets/first_image.png)
 
 ```
 
-Template:
+####Template example
 
 ```liquid
 {% for post in site.posts %}
@@ -71,7 +94,7 @@ image: {{ post.image }}
 <hr>
 ```
 
-HTML output:
+#### Output HTML Rendered:
 
 ```html
 title: Post 1
@@ -85,7 +108,11 @@ image: /assets/front_matter_image.png
 ```
 ### Example using twitter cards
 
-You can define a set of `<meta>` elements in your head.html, so when sharing a post in twitter it is displayed in a cool way. You have more info in [twitter's developers page](https://dev.twitter.com/cards/types)
+Another use of this plugin is to create a [twitter card](https://dev.twitter.com/cards/getting-started).
+
+You can define a set of `<meta>` elements in your `head.html` template, so when sharing a post in twitter, the tweet displays it in cool way. You have more info in [twitter's developers page](https://dev.twitter.com/cards/types)
+
+Here you have a sample:
 
 ```html
  <!-- twitter card -->
@@ -102,10 +129,6 @@ You can define a set of `<meta>` elements in your head.html, so when sharing a p
 
 You can validate how it will look using the [cards validator](https://cards-dev.twitter.com/validator)
 
-# To Do List
-
- * Make the plugin a gem, so it can be installed using `gem install`
- * add tests cases (see [https://github.com/ivantsepp/jekyll-autolink_email](https://github.com/ivantsepp/jekyll-autolink_email))
 
 # Contributing
 
@@ -116,8 +139,12 @@ You can validate how it will look using the [cards validator](https://cards-dev.
 4. Create a new Pull Request
 
 
+The tests are based on the code of [https://github.com/ivantsepp/jekyll-autolink_email](https://github.com/ivantsepp/jekyll-autolink_email)
+
+
 # License
 
-Copyright (c) 2015 Juan M. Merlos. (@merlos) Distributed under MIT License
+Copyright (c) 2015 Juan M. Merlos. (@merlos) [www.merlos.org](http://www.merlos.org) Distributed under MIT License
 
-[www.merlos.org](http://www.merlos.org)
+
+
