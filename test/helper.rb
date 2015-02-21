@@ -1,0 +1,6 @@
+require 'minitest/autorun'
+require 'minitest/unit'
+require 'shoulda'
+require 'mocha/mini_test'
+require 'jekyll'
+require 'jekyll/auto/image'

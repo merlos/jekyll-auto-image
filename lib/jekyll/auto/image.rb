@@ -1,3 +1,6 @@
+require "jekyll/auto/image/version"
+require "jekyll"
+
 module Jekyll
  
   #
@@ -11,7 +14,7 @@ module Jekyll
   #  4) nothing (not set)
   #
   #  
-  class PageImageGenerator < Generator
+  class AutoImageGenerator < Generator
  
     def generate(site)
       @site = site
@@ -34,22 +37,20 @@ module Jekyll
     def get_image(page)
       
       # debug lines
-      
       #puts page.title
       #puts page.name
       #puts page.ext
       #puts site.converters.select { |c| c.matches(page.ext) }.sort
-      
       if page.data['image']
         return page.data['image']
       end
       # convert the contents to html, and extract the first <img src="" apearance
       # I know, it's not efficient, but rather easy to implement :)
       htmled = page.transform
-      img_url = htmled.match(/<img.*\ssrc=[\"\']([\:\/\w\/\.]+)[\"\']/i)
+      img_url = htmled.match(/<img.*\ssrc=[\"\']([\S.]+)[\"\']/i)
       return img_url[1] if img_url != nil 
       return @site.config['image'] if @site.config['image'] != nil
-      return false
+      return nil
     end
     
   end # class
