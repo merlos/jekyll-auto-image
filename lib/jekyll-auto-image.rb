@@ -18,11 +18,11 @@ module Jekyll
  
     def generate(site)
       @site = site
-      site.pages.docs do |page|
+      site.pages.each do |page|
         img = get_image(page)
         page.data['image'] = img if img
       end
-        # Now do the same with posts
+      # Now do the same with posts
       site.posts.docs do |post|
         img = get_image(post)
         post.data['image'] = img if img
