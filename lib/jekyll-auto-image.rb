@@ -22,8 +22,8 @@ module Jekyll
         img = get_image(page)
         page.data['image'] = img if img
       end
-        # Now do the same with posts
-      site.posts.each do |post|
+      # Now do the same with posts
+      site.posts.docs do |post|
         img = get_image(post)
         post.data['image'] = img if img
       end
