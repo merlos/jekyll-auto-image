@@ -39,6 +39,16 @@ The plugin allows you to set a default image for all pages/posts. To do that, ad
  image: /path/to/your/default/image.png
 ```
 
+### Jekyll 3.0
+Versions of `jekyll-auto-image >= 1.1.0` are compatible with `jekyll 3.0`. If you require compatibility with jekyll 2.0 use `jekyll-auto-image 1.0.2`.
+
+```
+  # Check version installed versions
+  $ gem list | grep jekyll
+  jekyll (3.0.1)
+  jekyll-auto-image (1.0.2)
+```
+
 # Usage
 
 In each post/page, the plugin will set `{{ page.image }}` following this fallback rules:
@@ -138,13 +148,18 @@ You can validate how it will look using the [cards validator](https://cards-dev.
 4. Push to the branch (git push origin my-new-feature)
 4. Create a new Pull Request
 
+# Run tests
+
+```
+   $ rake test
+```
 
 The tests are based on the code of [https://github.com/ivantsepp/jekyll-autolink_email](https://github.com/ivantsepp/jekyll-autolink_email)
 
 
 # License
 
-Copyright (c) 2015 Juan M. Merlos. (@merlos) [www.merlos.org](http://www.merlos.org) Distributed under MIT License
+Copyright (c) 2015 Juan M. Merlos (@merlos) [www.merlos.org](http://www.merlos.org) Distributed under MIT License
 
 
 
