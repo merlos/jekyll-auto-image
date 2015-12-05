@@ -40,10 +40,10 @@ The plugin allows you to set a default image for all pages/posts. To do that, ad
 ```
 
 ### Jekyll 3.0
-Versions of `jekyll-auto-image >= 1.1.0` are compatible with `jekyll 3.0`. If you require compatibility with jekyll 2.0 use `jekyll-auto-image 1.0.2`.
+Versions of jekyll-auto-image >= 1.1.0 are compatible with jekyll 3.0. If you require compatibility with jekyll 2.0 use jekyll-auto-image 1.0.2.
 
 ```
-  # Check version installed versions
+  # Run this command check installed versions
   $ gem list | grep jekyll
   jekyll (3.0.1)
   jekyll-auto-image (1.0.2)
