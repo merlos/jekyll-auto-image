@@ -43,12 +43,21 @@ module Jekyll
  
     def generate(site)
       @site = site
+      
       site.pages.each do |page|
         img = get_image(page)
         page.data['image'] = img if img
       end
       # Now do the same with posts
-      site.posts.docs do |post|
+      site.posts.docs.each do |post|
+        #puts "hola"
+        #puts Jekyll::VERSION
+        #puts post.class
+        #puts post.inspect
+        #puts post.data.inspect
+        #puts "-----"      
+        #puts post.output
+        #puts "----"
         img = get_image(post)
         post.data['image'] = img if img
       end
@@ -65,13 +74,19 @@ module Jekyll
       #puts page.title
       #puts page.name
       #puts page.ext
-      #puts site.converters.select { |c| c.matches(page.ext) }.sort
+      #puts @site.converters.select { |c| c.matches(page.ext) }.sort
       if page.data['image']
         return page.data['image']
       end
       # convert the contents to html, and extract the first <img src="" apearance
       # I know, it's not efficient, but rather easy to implement :)
-      htmled = page.transform
+      
+      if page.class == Jekyll::Document # for jekyll 3.0 posts & collections
+        htmled = Jekyll::Renderer.new(@site, page, @site.site_payload).run
+      else 
+        htmled = page.transform # for jekyll 2.x pages
+      end
+      
       img_url = htmled.match(/<img.*\ssrc=[\"\']([\S.]+)[\"\']/i)
       return img_url[1] if img_url != nil 
       return @site.config['image'] if @site.config['image'] != nil
