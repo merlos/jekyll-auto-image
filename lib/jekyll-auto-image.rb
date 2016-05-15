@@ -82,7 +82,7 @@ module Jekyll
       # I know, it's not efficient, but rather easy to implement :)
       
       if page.class == Jekyll::Document # for jekyll 3.0 posts & collections
-        htmled = Jekyll::Renderer.new(@site, page, @site.site_payload).run
+        htmled = Jekyll::Renderer.new(@site, page, @site.site_payload).convert(page.content)
       else 
         htmled = page.transform # for jekyll 2.x pages
       end
