@@ -80,18 +80,18 @@ module Jekyll
       end
       # convert the contents to html, and extract the first <img src="" apearance
       # I know, it's not efficient, but rather easy to implement :)
-      
-      if page.class == Jekyll::Document # for jekyll 3.0 posts & collections
+
+      if page.class < Jekyll::Convertible # for jekyll 3.0 posts & collections
         htmled = Jekyll::Renderer.new(@site, page, @site.site_payload).convert(page.content)
-      else 
+      else
         htmled = page.transform # for jekyll 2.x pages
       end
-      
+
       img_url = htmled.match(/<img.*\ssrc=[\"\']([\S.]+)[\"\']/i)
-      return img_url[1] if img_url != nil 
+      return img_url[1] if img_url != nil
       return @site.config['image'] if @site.config['image'] != nil
       return nil
     end
-    
+
   end # class
 end # module
