@@ -10,7 +10,7 @@
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 #
@@ -27,23 +27,23 @@ require "jekyll-auto-image/version"
 require "jekyll"
 
 module Jekyll
- 
+
   #
   # Auto Image Generator
-  # 
+  #
   # Sets {{page.image}} variable in liquid with the following fallback:
-  #  
+  #
   #  1) image value in front matter
   #  2) first image in the post/pàge
   #  3) _config.yaml image default
   #  4) nothing (not set)
   #
-  #  
+  #
   class AutoImageGenerator < Generator
- 
+
     def generate(site)
       @site = site
-      
+
       site.pages.each do |page|
         img = get_image(page)
         page.data['image'] = img if img
@@ -55,21 +55,23 @@ module Jekyll
         #puts post.class
         #puts post.inspect
         #puts post.data.inspect
-        #puts "-----"      
+        #puts "-----"
         #puts post.output
         #puts "----"
         img = get_image(post)
         post.data['image'] = img if img
       end
     end # generate
-    
+
     #
-    # page: is either a Jekyll::Page or a Jekyll::post
+    # page: is either a Jekyll::Page or a Jekyll::Post in 2.x. In Jekyll 3.0 is Jekyll::Document and
+    # in Jekyll 3.3 is either Jekyll::Page or Jekyll::Document (fascinating!)
+    #
     # returns the path of the first image found in the contents
-    # of the page/post 
+    # of the page/post
     #
     def get_image(page)
-      
+
       # debug lines
       #puts page.title
       #puts page.name
@@ -78,10 +80,15 @@ module Jekyll
       if page.data['image']
         return page.data['image']
       end
+
+      # fix for jekyll 3.3.0,
+      @site.config['kramdown'] = @site.config['kramdown'].dup
+
       # convert the contents to html, and extract the first <img src="" apearance
       # I know, it's not efficient, but rather easy to implement :)
 
-      if page.class < Jekyll::Convertible # for jekyll 3.0 posts & collections
+      # Convertible for jekyll 3.0 and 3.3 posts & collections 
+      if page.class < Jekyll::Convertible || page.class == Jekyll::Document
         htmled = Jekyll::Renderer.new(@site, page, @site.site_payload).convert(page.content)
       else
         htmled = page.transform # for jekyll 2.x pages
