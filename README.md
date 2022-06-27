@@ -94,7 +94,7 @@ contents.
 
 ```
 
-####Template example
+#### Template example
 
 ```liquid
 {% for post in site.posts %}
